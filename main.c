@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
 #include <unistd.h>
 #include <sys/wait.h>
+#include <time.h>
 
 #define N 10
 
@@ -18,14 +18,14 @@ void childProcFunc(int loto_array[]) {
 
 void waitChild(pid_t child_pid) {
     int wstatus;
-    pid_t pid = wait(&wstatus);
+    pid_t pid = waitpid(child_pid, &wstatus, 0);
     if (WIFEXITED(wstatus)) return;
     if (WIFSIGNALED(wstatus)) return;
 }
 
 int main() {
-    printf("---Loto---\n");
     srand(time(0));
+    printf("---Loto---\n");
     int loto_array[N];
     pid_t pid_array[N];
     for (int i = 0; i < N; i++) {
